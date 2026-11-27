@@ -14,7 +14,7 @@
   --creme:#F2ECE1; --creme-2:#E9E0D0; --orange:#DE5A27; --orange-dk:#B8441A; --rosa:#E66FA8;
   --ink:#2B211C;
   /* Sekundärfarben laut Doku (Corporate Design Seite 28) */
-  --orange-hell:#E98661; --rosa-hell:#EA9FC5; --blau:#88C1D8; --lila:#B488BC; --gruen:#CEE1A7; --ink-2:#6B5A50; --white:#FFFFFF; --line:#D9CCB8;
+  --orange-hell:#E98661; --rosa-hell:#EA9FC5; --blau:#88C1D8; --lila:#B488BC; --gruen:#CEE1A7; --gruen-text:#46652D; --ink-2:#6B5A50; --white:#FFFFFF; --line:#D9CCB8;
   --head:"Brevia","Nunito","Arial Rounded MT Bold",system-ui,sans-serif;
   --body:"Open Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   color-scheme:light;
@@ -23,7 +23,7 @@
 html,body{height:100%}
 body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 [hidden]{display:none!important}
-button,input,select{font:inherit;color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3{font-family:var(--head);font-weight:900;line-height:1.1;margin:0;text-wrap:balance}
 :focus-visible{outline:3px solid var(--rosa);outline-offset:2px}
 
@@ -85,7 +85,7 @@ html,body{overflow-x:clip}
 /* Wortwolke */
 .cloud{position:absolute;inset:0;overflow:hidden}
 .w{position:absolute;white-space:nowrap;font-family:var(--head);font-weight:900;line-height:1;cursor:default;transition:left .6s cubic-bezier(.2,.8,.2,1),top .6s cubic-bezier(.2,.8,.2,1),font-size .6s cubic-bezier(.2,.8,.2,1),opacity .4s;user-select:none}
-.w.c0{color:var(--orange)} .w.c1{color:var(--rosa)} .w.c2{color:var(--blau)} .w.c3{color:var(--lila)} .w.c4{color:var(--orange-hell)} .w.c5{color:var(--rosa-hell)} .w.c6{color:var(--gruen)}
+.w.c0{color:var(--orange)} .w.c1{color:var(--rosa)} .w.c2{color:var(--blau)} .w.c3{color:var(--lila)} .w.c4{color:var(--orange-hell)} .w.c5{color:var(--rosa-hell)} .w.c6{color:var(--gruen-text)}
 .w.new{animation:pop .7s ease-out}
 @keyframes pop{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.12)}100%{transform:scale(1)}}
 .host-mod .w{cursor:pointer}
@@ -147,12 +147,12 @@ body.clean .h-bar:hover{opacity:1}
 .sendrow{display:flex;gap:8px}
 .sendrow .field{flex:1;min-width:0}
 .mine{display:flex;flex-wrap:wrap;gap:8px}
-.mine span{background:var(--white);border-radius:999px;padding:.3em .9em;font-weight:600}
+.mine > span{background:var(--white);border-radius:999px;padding:.3em .9em;font-weight:600}
 .card{background:var(--white);border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:12px}
 .card h3{font-size:1.3rem;color:var(--orange)}
 .card.rosa h3{color:var(--rosa)}
 .rlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.rlist li{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:8px;background:var(--creme);border-radius:4px;padding:6px 6px 6px 12px;transition:transform .2s}
+.rlist > li{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:8px;background:var(--creme);border-radius:4px;padding:6px 6px 6px 12px;transition:transform .2s}
 .rlist .pos{font-family:var(--head);font-weight:900;color:var(--orange);font-size:1.3rem;width:1.4em;font-variant-numeric:tabular-nums}
 .rlist .lbl{font-weight:600;min-width:0;overflow-wrap:anywhere}
 .mv{width:44px;height:44px;border:0;border-radius:4px;background:var(--white);font-size:1.1rem;cursor:pointer}
@@ -164,7 +164,7 @@ body.clean .h-bar:hover{opacity:1}
 .boostsel label{display:flex;gap:10px;align-items:center;padding:8px 10px;background:var(--creme);border-radius:4px;font-weight:600}
 .boostsel input{width:20px;height:20px;accent-color:var(--rosa)}
 .p-ag{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
-.p-ag li{display:flex;gap:12px;align-items:center;background:var(--white);border-radius:4px;padding:10px 14px;font-weight:600}
+.p-ag > li{display:flex;gap:12px;align-items:center;background:var(--white);border-radius:4px;padding:10px 14px;font-weight:600}
 .p-ag .num{font-family:var(--head);font-weight:900;color:var(--orange);font-size:1.3rem;font-variant-numeric:tabular-nums}
 
 @media (max-width:820px){
@@ -174,6 +174,69 @@ body.clean .h-bar:hover{opacity:1}
   .stage{inset:8px 16px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Zwei Sammelrunden, Timer, Notizen und Themenspeicher */
+.h-tools{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;justify-content:flex-end;flex:0 1 auto}
+.h-title{max-width:100%;min-width:0;flex:1}
+.timer{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:190px;max-width:240px;box-shadow:0 2px 6px #2b211c0a}
+.timer-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.timer-clock{font-family:var(--head);font-size:2.1rem;line-height:1.1;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:.02em;border:0;background:none;padding:4px 0;cursor:pointer;color:var(--ink)}
+.timer-clock:hover{color:var(--orange-dk)}
+.timer-controls{display:flex;gap:6px;align-items:center;margin-top:8px}
+.timer-btn{border:0;background:var(--creme);border-radius:5px;min-width:36px;min-height:36px;font-size:.9rem;font-weight:700;padding:5px 9px;cursor:pointer}
+.timer-btn:hover{background:var(--creme-2)}
+.timer-btn.primary{background:var(--orange-dk);color:white;flex:1}
+.timer-btn:disabled{opacity:.45;cursor:not-allowed}
+.timer-track{height:4px;background:var(--creme-2);border-radius:999px;overflow:hidden;margin-top:6px}
+.timer-fill{height:100%;background:var(--orange-dk);width:100%;transition:width .25s linear}
+.timer.expired .timer-clock,.phone-timer.expired .timer-value{color:var(--orange-dk)}
+.timer.expired .timer-fill{background:var(--orange-dk)}
+.timer-presets{display:flex;gap:6px;flex-wrap:wrap}
+.timer-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.phone-timer{margin:2px 16px 0;display:flex;align-items:center;gap:10px;justify-content:space-between;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:var(--white);max-width:528px;width:calc(100% - 32px);align-self:center}
+.phone-timer .timer-value{font-family:var(--head);font-size:1.35rem;font-weight:900;font-variant-numeric:tabular-nums}
+.phone-timer .timer-track{flex:1;max-width:140px;margin:0}
+.solo-stage{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:16px;overflow:auto;padding:16px}
+.solo-stage .bigstat{font-size:clamp(3rem,8vw,7rem)}
+.solo-stage p{margin:0;max-width:55ch}
+.solo-stage h2{font-size:clamp(1.5rem,3vw,2.4rem)}
+.solo-progress{height:10px;width:min(400px,100%);background:var(--creme-2);border-radius:999px;overflow:hidden}
+.solo-progress>div{height:100%;background:var(--orange-dk);transition:width .25s;width:0}
+.note-entry summary,.topic-detail summary{cursor:pointer;font-size:.88rem;font-weight:700;color:var(--ink-2);overflow-wrap:anywhere}
+.note-entry textarea{margin-top:8px;min-height:96px;resize:vertical}
+.note-entry .muted{font-size:.8rem;display:block;margin-top:4px}
+.topic-detail{font-size:.9rem;font-family:var(--body);font-weight:400;color:var(--ink);line-height:1.45;min-width:0;overflow-wrap:anywhere;max-width:100%}
+.topic-detail summary{padding:3px 0}
+.topic-detail ul{margin:6px 0 2px;padding-left:1.2rem}
+.topic-detail li{margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere;display:list-item;font-weight:400;padding:0;background:none}
+.topic-detail p{margin:6px 0;font-size:.85rem}
+.pick-item{background:var(--white);border-radius:4px;min-width:0}
+.pick-item label{margin:0;overflow-wrap:anywhere}
+.pick-item>.topic-detail{padding:0 14px 10px 48px}
+.pick .section-label{margin-top:12px;color:var(--ink-2);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.backlog-tag{color:var(--gruen-text);font-size:.78rem;font-weight:700}
+.word-send{display:flex;flex-direction:column;gap:10px}
+.mine{display:grid;grid-template-columns:1fr;gap:6px}
+.mine-item,.shared-item{background:var(--white);border-radius:5px;padding:9px 12px;min-width:0;overflow-wrap:anywhere}
+.mine-item>.word-line,.shared-item>.word-line{display:flex;gap:10px;justify-content:space-between;align-items:center;font-weight:700}
+.word-line small{font-weight:400;color:var(--ink-2);white-space:nowrap}
+.shared-list{display:grid;gap:6px}
+.shared-list .shared-item{border:1px solid var(--line)}
+.topic-stack{min-width:0;overflow-wrap:anywhere}
+.tchip{display:flex;flex-direction:column;gap:4px;max-width:100%;overflow-wrap:anywhere}
+.p-ag > li{align-items:flex-start}
+.result-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.result-controls .field{width:auto;min-height:40px;padding:6px 10px}
+.archive-card{background:var(--white);border-radius:6px;padding:16px 20px;display:flex;flex-direction:column;gap:8px}
+.archive-card h3{color:var(--gruen-text);font-size:1.25rem}
+.archive-card .shared-item{background:var(--creme);border:0}
+.archive-card .muted{margin:0;font-size:.9rem}
+#dwDetails{max-height:45vh;overflow:auto}
+.w:focus-visible{outline-offset:4px}
+@media (max-width:1100px){.h-tools{gap:8px}.timer{min-width:160px;padding:9px 11px}.timer-clock{font-size:1.8rem}.joinbox{gap:8px;padding:9px 11px}.joinbox .qr{width:clamp(72px,9vw,130px)}}
+@media (max-width:820px){.h-top{gap:10px;padding-top:12px}.h-top .bars{margin-top:6px}.h-tools{width:100%;justify-content:space-between;padding-left:16px;align-items:stretch}.timer{flex:1;max-width:230px}.joinbox{flex:1;min-width:0}.joinbox .url{display:none}.joinbox .qr{width:72px}.h-bar{gap:6px;padding-block:6px}.step{padding:.4em .55em;font-size:.8rem}.ag{gap:10px;padding:12px}.ag .meta{font-size:.75rem}.solo-stage{justify-content:safe center}.solo-stage .bigstat{font-size:3.5rem}}
+@media (max-width:420px){.h-tools{gap:6px}.joinbox{padding:6px;gap:6px}.joinbox .qr{width:54px}.joinbox .code{font-size:1.2rem}.joinbox .label{font-size:.65rem}.timer{min-width:142px;padding:6px 9px}.timer-btn{padding:4px 6px;min-height:32px;min-width:30px}.timer-clock{font-size:1.5rem}.timer-controls{margin-top:4px}.h-title{font-size:1.35rem}}
+
 </style>
 </head>
 <body>
@@ -182,12 +245,13 @@ body.clean .h-bar:hover{opacity:1}
 <section id="start" hidden>
   <div><div class="bars hero"><span class="bar">Agenda Wolke</span><span class="bar rosa">Netzwerk Toolbox für KMU Meetings</span></div></div>
   <div class="wrap">
-    <p class="intro">Alle sammeln per Handy, was heute besprochen werden soll. Die Begriffe erscheinen live am Beamer, häufig genannte werden größer. Danach bringen alle die Themen in eine Reihenfolge, und daraus entsteht die Agenda.</p>
+    <p class="intro">Alle sammeln zunächst unabhängig voneinander drei Begriffe. In der zweiten Runde entsteht daraus eine gemeinsame Wortwolke. Danach priorisieren alle die Themen für die Agenda. Offene Themen bleiben für das nächste Meeting erhalten.</p>
     <div class="choices">
       <div class="choice">
         <h2>Runde moderieren</h2>
         <p>Für den Laptop am Beamer. Du bekommst einen QR Code, den alle scannen.</p>
         <button class="btn" id="btnNew" type="button">Neue Runde starten</button>
+        <p class="resume muted" id="startBacklog" hidden></p>
         <div class="resume" id="resumeBox" hidden>oder <a href="#" id="btnResume">letzte Runde <span id="resumeCode"></span> fortsetzen</a></div>
       </div>
       <div class="choice">
@@ -199,15 +263,26 @@ body.clean .h-bar:hover{opacity:1}
         </form>
       </div>
     </div>
-    <p class="foot muted">Projektmodul III · Netzwerk Großbeerenstraße. Es werden keine Namen gespeichert. Eingaben laufen anonym über einen öffentlichen Live Server und sind nur mit dem Code der Runde sichtbar. Bitte keine vertraulichen Inhalte eingeben.</p>
+    <p class="foot muted">Projektmodul III · Netzwerk Großbeerenstraße. Es werden keine Namen abgefragt. Eingaben laufen über einen öffentlichen Live-Server ohne Zugriffsschutz. Runde 1 verbirgt die Begriffe in der Oberfläche, nicht gegenüber dem Server. Bitte keine vertraulichen Inhalte eingeben.</p>
   </div>
 </section>
 
 <!-- ================= BEAMER ================= -->
 <section id="host" hidden>
   <header class="h-top">
-    <div class="bars h-title"><span class="bar" id="hQuestion">Was sollen wir heute besprechen?</span><span class="bar rosa" id="hSub">Begriffe sammeln</span></div>
-    <div class="joinbox">
+    <div class="bars h-title"><span class="bar" id="hQuestion">Was sollen wir heute besprechen?</span><span class="bar rosa" id="hSub">Runde 1 · Eigene Begriffe</span></div>
+    <div class="h-tools">
+      <div class="timer" id="hTimer">
+        <div class="timer-head"><span class="label">Timer</span><span class="muted" id="hTimerState" style="font-size:.75rem">Bereit</span></div>
+        <button type="button" class="timer-clock" id="timerEdit" aria-label="Timerdauer einstellen" title="Timerdauer einstellen">05:00</button>
+        <div class="timer-track" aria-hidden="true"><div class="timer-fill" id="hTimerFill"></div></div>
+        <div class="timer-controls">
+          <button type="button" class="timer-btn primary" id="timerToggle" aria-label="Timer starten">Start</button>
+          <button type="button" class="timer-btn" id="timerPlus" title="Eine Minute hinzufügen" aria-label="Eine Minute hinzufügen">+1</button>
+          <button type="button" class="timer-btn" id="timerReset" title="Timer zurücksetzen" aria-label="Timer zurücksetzen">↺</button>
+        </div>
+      </div>
+      <div class="joinbox">
       <div class="qr" id="hQr" aria-label="QR Code zum Mitmachen"></div>
       <div>
         <div class="label">Mitmachen mit Code</div>
@@ -216,17 +291,28 @@ body.clean .h-bar:hover{opacity:1}
         <div class="people"><span id="hPeople">0</span> dabei</div>
       </div>
     </div>
+    </div>
   </header>
 
   <main class="h-main">
     <div class="stage">
-      <div class="cloud" id="hCloud"></div>
+      <div class="solo-stage" id="hSolo" hidden>
+        <span class="label">Runde 1 von 2 · Unabhängig sammeln</span>
+        <h2>Jede Person schreibt drei eigene Begriffe.</h2>
+        <p class="muted">Die Begriffe und Notizen bleiben bis zur Freigabe verborgen, damit sich niemand an den Antworten der anderen orientiert.</p>
+        <div class="bigstat"><span id="hReady">0 / 0</span></div>
+        <p class="muted">Teilnehmende haben ihre drei Begriffe eingereicht.</p>
+        <div class="solo-progress" aria-hidden="true"><div id="hReadyFill"></div></div>
+        <button class="btn" type="button" id="btnReveal">Runde 2 öffnen · Wortwolke zeigen</button>
+        <p class="muted" id="hReadyHint" style="font-size:.85rem"></p>
+      </div>
+      <div class="cloud" id="hCloud" hidden></div>
       <div class="empty" id="hEmpty"><b>Noch keine Begriffe</b><span>QR Code scannen und den ersten Begriff eingeben.</span></div>
 
       <div class="setup" id="hSetup" hidden>
         <div>
           <h3>Welche Themen kommen ins Ranking?</h3>
-          <p class="muted" style="margin:0 0 12px">Häufig genannte Begriffe sind schon ausgewählt. Ähnliche Begriffe am besten zu einem Thema zusammenfassen und als eigenes Thema ergänzen.</p>
+          <p class="muted" style="margin:0 0 12px">Häufig genannte Begriffe sind schon ausgewählt. Ähnliche Schreibweisen werden automatisch gebündelt. Nicht übernommene Themen landen im Themenspeicher. Themen aus früheren Meetings kannst du hier erneut auswählen.</p>
           <div class="pick" id="hPick"></div>
         </div>
         <div>
@@ -257,10 +343,11 @@ body.clean .h-bar:hover{opacity:1}
 
   <footer class="h-bar">
     <nav class="steps" aria-label="Ablauf">
-      <button class="step" data-phase="cloud" type="button"><b>1</b>Begriffe sammeln</button>
-      <button class="step" data-phase="setup" type="button"><b>2</b>Themen wählen</button>
-      <button class="step" data-phase="rank" type="button"><b>3</b>Ranking</button>
-      <button class="step" data-phase="result" type="button"><b>4</b>Agenda</button>
+      <button class="step" data-phase="solo" type="button"><b>1</b>Eigene Begriffe</button>
+      <button class="step" data-phase="cloud" type="button"><b>2</b>Wortwolke</button>
+      <button class="step" data-phase="setup" type="button"><b>3</b>Themen wählen</button>
+      <button class="step" data-phase="rank" type="button"><b>4</b>Ranking</button>
+      <button class="step" data-phase="result" type="button"><b>5</b>Agenda</button>
     </nav>
     <span class="sp"></span>
     <span class="status" id="hStatus"><i></i><span>verbinde…</span></span>
@@ -275,6 +362,7 @@ body.clean .h-bar:hover{opacity:1}
     <div class="bars"><span class="bar">Agenda Wolke</span><span class="bar rosa" id="pCode">Runde</span></div>
     <span class="status" id="pStatus"><i></i><span>verbinde…</span></span>
   </header>
+  <div class="phone-timer" id="pTimer" hidden><span class="label">Timer</span><span class="timer-value" id="pTimerValue">05:00</span><div class="timer-track" aria-hidden="true"><div class="timer-fill" id="pTimerFill"></div></div><span class="muted" id="pTimerState" style="font-size:.75rem"></span></div>
   <div class="p-body" id="pBody"></div>
 </section>
 
@@ -283,7 +371,7 @@ body.clean .h-bar:hover{opacity:1}
   <form class="box" id="settingsForm">
     <h3>Einstellungen</h3>
     <label><span class="label">Frage für die Wortwolke</span><input class="field" id="setQuestion" maxlength="90"></label>
-    <label><span class="label">Begriffe pro Person</span><input class="field" id="setMax" type="number" min="1" max="20"></label>
+    <label><span class="label">Zusätzliche Begriffe pro Person in Runde 2</span><input class="field" id="setMax" type="number" min="0" max="20"><span class="muted" style="font-size:.85rem">In Runde 1 werden immer genau drei eigene Begriffe gesammelt.</span></label>
     <label class="toggle"><input type="checkbox" id="setClean"> Steuerleiste ausblenden, bis die Maus darüber ist</label>
     <div class="row">
       <button class="btn ghost" type="button" id="btnReset">Neue Runde mit neuem Code</button>
@@ -296,11 +384,24 @@ body.clean .h-bar:hover{opacity:1}
   <div class="box">
     <h3 id="dwTitle">Begriff</h3>
     <p id="dwText" style="margin:0"></p>
+    <div id="dwDetails"></div>
     <div class="row">
       <button class="btn ghost" type="button" id="dwCancel">Abbrechen</button>
+      <button class="btn ghost" type="button" id="dwSplit" hidden>Cluster trennen</button>
       <button class="btn" type="button" id="dwHide">Ausblenden</button>
     </div>
   </div>
+</div>
+<div class="sheet" id="dlgTimer" hidden>
+  <form class="box" id="timerForm">
+    <h3>Timer einstellen</h3>
+    <p class="muted" style="margin:0">Die neue Dauer setzt den Timer zurück. Starte ihn anschließend oben.</p>
+    <div class="timer-presets" aria-label="Timer-Voreinstellungen">
+      <button class="btn ghost small" type="button" data-min="1">1 min</button><button class="btn ghost small" type="button" data-min="3">3 min</button><button class="btn ghost small" type="button" data-min="5">5 min</button><button class="btn ghost small" type="button" data-min="10">10 min</button><button class="btn ghost small" type="button" data-min="15">15 min</button>
+    </div>
+    <div class="timer-fields"><label><span class="label">Minuten</span><input class="field" id="timerMinutes" type="number" min="0" max="99" required></label><label><span class="label">Sekunden</span><input class="field" id="timerSeconds" type="number" min="0" max="59" required></label></div>
+    <div class="row"><button class="btn ghost" type="button" id="timerCancel">Abbrechen</button><button class="btn" type="submit">Übernehmen</button></div>
+  </form>
 </div>
 <div class="sheet" id="dlgConfirm" hidden>
   <div class="box">
@@ -319,7 +420,10 @@ body.clean .h-bar:hover{opacity:1}
 <script>
 "use strict";
 /* ================== Grundlagen ================== */
-const APP = "kmu-toolbox/agenda-wolke/v1";
+const APP = "kmu-toolbox/agenda-wolke/v2";
+const SOLO_WORDS = 3;
+const BACKLOG_KEY = "aw:backlog:v2";
+const DEFAULT_TIMER = 300;
 const BROKERS = [
   "wss://broker.hivemq.com:8884/mqtt",
   "wss://broker.emqx.io:8084/mqtt",
@@ -332,10 +436,43 @@ const $ = (id) => document.getElementById(id);
 const rid = (n) => { let s = ""; const a = new Uint32Array(n); crypto.getRandomValues(a); for (const x of a) s += ALPH[x % ALPH.length]; return s; };
 const store = {
   get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
-  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } }
 };
 const clean = (s, max) => String(s ?? "").replace(/[\u0000-\u001f]/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
-const norm = (s) => s.toLocaleLowerCase("de").replace(/[.,;:!?"'„“”«»()\[\]]+/g, "").replace(/\s+/g, " ").trim();
+const norm = (s) => String(s ?? "").normalize("NFKC").toLocaleLowerCase("de").replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/g, " ").trim();
+const folded = (s) => norm(s).replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss").replace(/ /g, "");
+const dict = (obj) => Object.assign(Object.create(null), obj || {});
+const uniq = (arr) => [...new Set(arr.filter(Boolean))];
+function noteText(s){return String(s ?? "").replace(/[^\S\n]+/g," ").replace(/[\u0000-\u0009\u000b-\u001f]/g,"").trim().slice(0,500);}
+function uniqNotes(notes){
+  const seen = new Set(); return (notes || []).filter(n => n && n.text && !seen.has(n.word+"\u0000"+n.text) && seen.add(n.word+"\u0000"+n.text));
+}
+function editDistance(a,b){
+  const d = Array.from({length:a.length+1},(_,i)=>[i]); for(let j=0;j<=b.length;j++)d[0][j]=j;
+  for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+    if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1);
+  } return d[a.length][b.length];
+}
+function spellingDistance(a,b){
+  a=folded(a); b=folded(b); if(!a||!b)return Infinity; if(a===b)return 0;
+  const min=Math.min(a.length,b.length), max=Math.max(a.length,b.length), limit=min>=9?2:min>=5?1:0;
+  if(!limit || Math.abs(a.length-b.length)>limit || a[0]!==b[0])return Infinity;
+  const d=editDistance(a,b); return d<=limit&&d/max<=.22?d:Infinity;
+}
+function similar(a,b){return Number.isFinite(spellingDistance(a,b));}
+function getBacklog(){const b=store.get(BACKLOG_KEY);return Array.isArray(b)?b.filter(x=>x&&typeof x.id==="string"&&typeof x.label==="string"):[];}
+function newTimer(){return {duration:DEFAULT_TIMER,remaining:DEFAULT_TIMER,endsAt:null};}
+function timerRemaining(t){return Math.max(0,t.endsAt?Math.ceil((t.endsAt-Date.now())/1000):Math.ceil(t.remaining));}
+function timerFormat(n){return `${String(Math.floor(n/60)).padStart(2,"0")}:${String(n%60).padStart(2,"0")}`;}
+function timerView(t,prefix){
+  if(!t)return; const n=timerRemaining(t), running=!!t.endsAt&&n>0;
+  const clock=prefix==="h"?$("timerEdit"):$("pTimerValue"); clock.textContent=timerFormat(n);
+  $(prefix+"TimerState").textContent=n===0?"Zeit um":running?"Läuft":n===t.duration?"Bereit":"Pausiert";
+  $(prefix+"TimerFill").style.width=Math.min(100,Math.max(0,100*n/Math.max(1,t.duration)))+"%";
+  $(prefix+"Timer").classList.toggle("expired",n===0);
+  if(prefix==="h") {$("timerToggle").textContent=running?"Pause":"Start"; $("timerToggle").setAttribute("aria-label",running?"Timer pausieren":"Timer starten");}
+}
 function el(tag, attrs, ...kids){
   const e = document.createElement(tag);
   for (const [k,v] of Object.entries(attrs || {})) {
@@ -345,6 +482,19 @@ function el(tag, attrs, ...kids){
   for (const k of kids) if (k != null) e.append(k);
   return e;
 }
+function topicDetails(item,id,open=false){
+  const variants=uniq(item.variants || []).filter(v=>v!==item.label), notes=uniqNotes(item.notes);
+  if(!variants.length&&!notes.length)return null;
+  const label=[variants.length?`${variants.length+1} Schreibweisen`:"",notes.length?`${notes.length} ${notes.length===1?"Notiz":"Notizen"}`:""].filter(Boolean).join(" · ");
+  const d=el("details",{class:"topic-detail","data-detail":id,open},el("summary",{text:label}));
+  if(variants.length)d.append(el("p",{text:"Gebündelt: "+[item.label,...variants].join(" · ")}));
+  if(notes.length)d.append(el("ul",{},...notes.map(n=>el("li",{},n.word&&n.word!==item.label?el("strong",{text:n.word+": "}):null,n.text))));
+  return d;
+}
+function openDetails(root){return new Set([...root.querySelectorAll("details[open][data-detail]")].map(d=>d.dataset.detail));}
+function showDetails(root,opened){for(const d of root.querySelectorAll("details[data-detail]"))if(opened.has(d.dataset.detail))d.open=true;}
+function sharedItem(item,id,meta){return el("div",{class:"shared-item"},el("div",{class:"word-line"},el("span",{text:item.label}),meta?el("small",{text:meta}):null),topicDetails(item,id));}
+function topicStack(item,id,cls="topic-stack"){return el("div",{class:cls},el("span",{text:item.label}),topicDetails(item,id));}
 function toast(msg){ const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, 2600); }
 function confirmBox(title, text, yes){
   return new Promise((res) => {
@@ -368,7 +518,7 @@ function connect(code, brokerIdx, onMsg, onStatus){
     setTimeout(() => { onStatus("on"); const r = store.get("ret:" + base + "state"); if (r) onMsg("state", r); }, 50);
     return { idx: 0, pub(sub, obj, retain){ if (retain) store.set("ret:" + base + sub, obj); bc.postMessage({ sub, payload: obj }); }, subscribe(){}, end(){ bc.close(); } };
   }
-  let client = null, ended = false, idx = brokerIdx, fails = 0;
+  let client = null, ended = false, idx = Math.min(BROKERS.length-1, Math.max(0, brokerIdx || 0)), fails = 0;
   const api = { idx, pub(sub, obj, retain){ if (client && client.connected) client.publish(base + sub, JSON.stringify(obj), { qos: 1, retain: !!retain }); else api._queue.push([sub,obj,retain]); }, _queue: [], end(){ ended = true; client && client.end(true); } };
   const subs = [];
   api.subscribe = (sub) => { subs.push(sub); if (client && client.connected) client.subscribe(base + sub, { qos: 1 }); };
@@ -398,6 +548,7 @@ function boot(){
 
 function showStart(){
   $("start").hidden = false;
+  const backlog=getBacklog(); if(backlog.length){$("startBacklog").hidden=false;$("startBacklog").textContent=`${backlog.length} offene Themen aus früheren Meetings im Themenspeicher.`;}
   const last = store.get("aw:lastHost");
   if (last) { $("resumeBox").hidden = false; $("resumeCode").textContent = last; }
   $("btnNew").onclick = () => { location.href = hostUrl(rid(5)); };
@@ -408,72 +559,123 @@ function hostUrl(code){ const u = new URL(location.href); u.search = ""; u.searc
 
 /* ================== Beamer ================== */
 function newState(code){
-  return { v:1, code, round: rid(6), broker: 0, phase:"cloud", question:"Was sollen wir heute besprechen?",
-    maxWords: 3, boostOn: false, words: {}, hidden: {}, used: {}, people: {}, seen: [],
-    topics: [], picked: {}, ranks: {}, boosts: {} };
+  return {v:2,code,round:rid(6),broker:0,phase:"solo",revealed:false,question:"Was sollen wir heute besprechen?",
+    extraWords:3,words:{},hidden:{},separate:{},used:{},people:{},receipts:{},seen:[],
+    topics:[],custom:[],picked:{},ranks:{},agendaLimit:null,timer:newTimer(),backlogBase:getBacklog(),backlogSaved:[]};
 }
-
-function startHost(code){
-  document.body.classList.add("host-mod");
-  $("host").hidden = false;
-  let S = store.get("aw:host:" + code);
-  if (!S || S.code !== code) S = newState(code);
-  S.boostOn = false; // „Mein Punkt ist auch wichtig“ ist entfernt
-  store.set("aw:lastHost", code);
-  if (store.get("aw:clean")) document.body.classList.add("clean");
-  let conn, pubTimer = null;
-
-  const save = () => store.set("aw:host:" + code, S);
-  const visibleWords = () => Object.entries(S.words).filter(([k]) => !S.hidden[k]).map(([k,w]) => ({ key:k, label:w.label, n:w.n })).sort((a,b) => b.n - a.n || a.label.localeCompare(b.label, "de"));
-
-  function agenda(){
-    const pts = {}, cnt = {}, bst = {};
-    for (const t of S.topics) { pts[t.id] = 0; cnt[t.id] = 0; bst[t.id] = 0; }
-    const ranks = Object.values(S.ranks);
-    for (const order of ranks) {
-      const k = order.length; order.forEach((id, i) => { if (id in pts) { pts[id] += k > 1 ? (k - 1 - i) / (k - 1) : 1; cnt[id]++; } });
+function hydrateState(S,code){
+  if(!S||S.code!==code)return newState(code);
+  if(S.v!==2){
+    // A previously published word cloud cannot be made private retroactively.
+    S={...newState(code),...S,v:2,extraWords:Math.max(0,(S.maxWords||3)-3),revealed:S.phase!=="solo"};
+    if(S.phase==="cloud"&&!Object.keys(S.words||{}).length){S.phase="solo";S.revealed=false;}
+    for(const t of S.topics||[]){t.notes=t.notes||[];t.variants=t.variants||[t.label];}
+  }
+  for(const k of ["words","hidden","separate","used","people","receipts","picked","ranks"])S[k]=dict(S[k]);
+  for(const w of Object.values(S.words)){w.labels=dict(w.labels||{[w.label]:w.n});w.notes=w.notes||[];}
+  S.custom=S.custom||[];S.timer=S.timer||newTimer();S.backlogBase=S.backlogBase||getBacklog();S.backlogSaved=S.backlogSaved||[];
+  return S;
+}
+function clusterWords(S){
+  const groups=[];
+  for(const [key,w] of Object.entries(S.words)){
+    if(S.hidden[key])continue;
+    let match=null,dist=Infinity;
+    if(!S.separate[key])for(const g of groups){
+      if(g.keys.some(k=>S.separate[k]))continue;
+      // Do not chain approximate matches through a sequence of intermediate spellings.
+      const d=spellingDistance(g.key,key);if(d<dist){dist=d;match=g;}
     }
-    if (S.boostOn) for (const id of Object.values(S.boosts)) if (id in bst) bst[id]++;
-    const avgPos = (id) => { let s = 0, c = 0; for (const o of ranks) { const i = o.indexOf(id); if (i >= 0) { s += i + 1; c++; } } return c ? s / c : null; };
-    return S.topics.map((t) => ({ id:t.id, label:t.label, score: ranks.length ? pts[t.id] / ranks.length : 0, boosts: bst[t.id], avg: avgPos(t.id) }))
-      .sort((a,b) => (b.boosts > 0) - (a.boosts > 0) || b.score - a.score || b.boosts - a.boosts || a.label.localeCompare(b.label, "de"));
+    if(!match){match={key,keys:[],n:0,counts:dict(),notes:[]};groups.push(match);}
+    match.keys.push(key);match.n+=w.n;
+    for(const [label,n] of Object.entries(w.labels))match.counts[label]=(match.counts[label]||0)+n;
+    match.notes.push(...(w.notes||[]));
   }
-
+  return groups.map(g=>{
+    const variants=Object.entries(g.counts).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+    return {key:g.key,keys:g.keys,label:variants[0],n:g.n,variants,notes:uniqNotes(g.notes)};
+  }).sort((a,b)=>b.n-a.n||a.label.localeCompare(b.label,"de"));
+}
+function pickItemsFor(S){
+  const items=clusterWords(S).map(w=>({...w,id:"w:"+w.key,origins:[],carried:false}));
+  for(const c of S.custom)items.push({id:c.id,label:c.label,variants:[c.label],notes:c.notes||[],n:null,origins:[],carried:false});
+  for(const b of S.backlogBase){
+    // A repeated exact term reuses its stored notes rather than appearing twice.
+    let match=items.find(it=>[it.label,...(it.variants||[])].some(v=>folded(v)===folded(b.label)));
+    if(match){match.carried=true;match.origins.push(b.id);match.variants=uniq([...match.variants,...(b.variants||[b.label])]);match.notes=uniqNotes([...match.notes,...(b.notes||[])]);}
+    else items.push({id:"b:"+b.id,label:b.label,variants:uniq([b.label,...(b.variants||[])]),notes:uniqNotes(b.notes),n:null,origins:[b.id],carried:true});
+  }
+  return items;
+}
+function archiveMeeting(S,items,selected){
+  const selectedIds=new Set(selected), previousIds=new Set([...S.backlogBase.map(b=>b.id),...S.backlogSaved]);
+  const remaining=getBacklog().filter(b=>!previousIds.has(b.id));
+  const saved=[];
+  for(const item of items){
+    if(selectedIds.has(item.id))continue;
+    const entry={id:item.origins?.[0]||`${S.round}:${item.id}`,label:item.label,variants:uniq([item.label,...(item.variants||[])]),notes:uniqNotes(item.notes)};
+    const match=remaining.find(b=>folded(b.label)===folded(entry.label));
+    if(match){match.variants=uniq([match.label,...(match.variants||[]),...entry.variants]);match.notes=uniqNotes([...(match.notes||[]),...entry.notes]);saved.push(match.id);}
+    else {remaining.push(entry);saved.push(entry.id);}
+  }
+  if(!store.set(BACKLOG_KEY,remaining))return {ok:false,items:remaining};
+  S.backlogSaved=uniq(saved);return {ok:true,items:remaining};
+}
+function startHost(code){
+  document.body.classList.add("host-mod"); $("host").hidden=false;
+  let S=hydrateState(store.get("aw:host:"+code),code);
+  store.set("aw:lastHost",code);
+  if(store.get("aw:clean"))document.body.classList.add("clean");
+  let conn,pubTimer=null,archiveSig=null,archived=null;
+  const save=()=>store.set("aw:host:"+code,S);
+  const visibleWords=()=>clusterWords(S);
+  const pickItems=()=>pickItemsFor(S);
+  const participants=()=>Object.keys(S.people);
+  const ready=()=>participants().filter(pid=>(S.used[pid]||0)>=SOLO_WORDS).length;
+  const topicData=it=>({id:it.id,label:it.label,variants:it.variants||[it.label],notes:it.notes||[]});
+  function agendaAll(){
+    const pts=dict(), ranks=Object.values(S.ranks);
+    for(const t of S.topics)pts[t.id]=0;
+    for(const order of ranks){const k=order.length;order.forEach((id,i)=>{if(Object.hasOwn(pts,id))pts[id]+=k>1?(k-1-i)/(k-1):1;});}
+    const avg=id=>{const pos=ranks.map(o=>o.indexOf(id)+1).filter(n=>n>0);return pos.length?pos.reduce((a,b)=>a+b,0)/pos.length:null;};
+    return S.topics.map(t=>({...t,score:ranks.length?pts[t.id]/ranks.length:0,avg:avg(t.id)})).sort((a,b)=>b.score-a.score||a.label.localeCompare(b.label,"de"));
+  }
+  const agenda=()=>{const all=agendaAll();return all.slice(0,S.agendaLimit===null?all.length:Math.min(all.length,S.agendaLimit));};
   function publicState(){
-    return { v:1, round:S.round, phase:S.phase, question:S.question, maxWords:S.maxWords, boostOn:S.boostOn,
-      words: visibleWords().slice(0, 60).map((w) => [w.label, w.n]), topics: S.phase === "rank" || S.phase === "result" ? S.topics : [],
-      used: S.used, ranked: Object.keys(S.ranks), boosts: S.boosts, people: Object.keys(S.people).length,
-      agenda: S.phase === "result" ? agenda().map((a) => ({ label:a.label, boosts:a.boosts })) : null, t: Date.now() };
+    // No words, notes, or previous meeting topics are published in the retained state during round 1.
+    return {v:2,round:S.round,phase:S.phase,question:S.question,extraWords:S.extraWords,soloWords:SOLO_WORDS,
+      words:S.phase==="cloud"?visibleWords().map(w=>({key:w.key,label:w.label,n:w.n,variants:w.variants,notes:w.notes})):[],
+      topics:S.phase==="rank"?S.topics:[],used:S.used,receipts:S.receipts,ranked:Object.keys(S.ranks),people:participants().length,ready:ready(),timer:S.timer,
+      agenda:S.phase==="result"?agenda().map(topicData):null,t:Date.now()};
   }
-  function changed(){ save(); render(); clearTimeout(pubTimer); pubTimer = setTimeout(() => conn.pub("state", publicState(), true), 120); }
-
+  function publish(){if(conn)conn.pub("state",publicState(),true);}
+  function changed(){render();save();clearTimeout(pubTimer);pubTimer=setTimeout(publish,100);}
   function handleIn(m){
-    if (!m || typeof m !== "object" || typeof m.pid !== "string" || m.pid.length > 24) return;
-    if (m.round && m.round !== S.round) { if (m.t === "hello") conn.pub("state", publicState(), true); return; }
-    if (m.id) { if (S.seen.includes(m.id)) return; S.seen.push(m.id); if (S.seen.length > 800) S.seen.splice(0, 200); }
-    const isNew = !S.people[m.pid]; S.people[m.pid] = 1;
-    if (m.t === "hello") { if (isNew) changed(); else conn.pub("state", publicState(), true); return; }
-    if (m.t === "word") {
-      if (S.phase !== "cloud") return;
-      const text = clean(m.text, 40); const key = norm(text); if (!key) return;
-      const used = S.used[m.pid] || 0; if (used >= S.maxWords) return;
-      const w = S.words[key] || (S.words[key] = { label:text, n:0, labels:{} });
-      w.n++; w.labels[text] = (w.labels[text] || 0) + 1;
-      w.label = Object.entries(w.labels).sort((a,b) => b[1] - a[1])[0][0];
-      S.used[m.pid] = used + 1; fresh.add(key);
-    } else if (m.t === "rank") {
-      if (S.phase !== "rank" || !Array.isArray(m.order)) return;
-      const ids = new Set(S.topics.map((t) => t.id));
-      const order = [...new Set(m.order.filter((x) => ids.has(x)))]; if (!order.length) return;
-      S.ranks[m.pid] = order;
-    } else if (m.t === "boost") {
-      if (S.phase !== "rank" || !S.boostOn || S.boosts[m.pid]) return;
-      if (!S.topics.some((t) => t.id === m.topic)) return;
-      S.boosts[m.pid] = m.topic;
-    } else return;
+    if(!m||typeof m!=="object"||typeof m.pid!=="string"||!/^[A-Z0-9]{1,24}$/.test(m.pid))return;
+    if(m.round&&m.round!==S.round){if(m.t==="hello")publish();return;}
+    if(m.t==="hello"){const isNew=!S.people[m.pid];S.people[m.pid]=1;if(isNew)changed();else publish();return;}
+    if(m.round!==S.round||typeof m.id!=="string"||!/^[A-Z0-9]{1,24}$/.test(m.id))return;
+    if(m.t==="word"){
+      const receipts=S.receipts[m.pid]||(S.receipts[m.pid]=[]);
+      if(receipts.includes(m.id)){publish();return;}
+      if(S.phase!=="solo"&&S.phase!=="cloud")return;
+      const text=clean(m.text,40),key=norm(text);if(!key)return;
+      const used=S.used[m.pid]||0,max=S.phase==="solo"?SOLO_WORDS:SOLO_WORDS+S.extraWords;
+      if(used>=max){publish();return;}
+      S.people[m.pid]=1;
+      const w=S.words[key]||(S.words[key]={label:text,n:0,labels:dict(),notes:[]});
+      w.n++;w.labels[text]=(w.labels[text]||0)+1;
+      w.label=Object.entries(w.labels).sort((a,b)=>b[1]-a[1])[0][0];
+      const note=noteText(m.note);if(note)w.notes.push({word:text,text:note});
+      S.used[m.pid]=used+1;receipts.push(m.id);fresh.add(key);
+    }else if(m.t==="rank"){
+      if(S.phase!=="rank"||!Array.isArray(m.order))return;
+      const ids=new Set(S.topics.map(t=>t.id)),order=[...new Set(m.order.filter(x=>ids.has(x)))];
+      if(order.length!==ids.size)return;
+      S.people[m.pid]=1;S.ranks[m.pid]=order;
+    }else return;
     changed();
   }
-
   /* ---- Wortwolke Layout: Spirale mit Kollisionsprüfung ---- */
   const cloudEl = $("hCloud"); const nodes = new Map(); const fresh = new Set();
   const ctx = document.createElement("canvas").getContext("2d");
@@ -489,9 +691,9 @@ function startHost(code){
     words.forEach((w, i) => {
       const p = placed[i]; if (!p) return; keep.add(w.key);
       let n = nodes.get(w.key);
-      if (!n) { n = el("span", { class: "w", title: "", onclick: () => askHide(w.key) }); nodes.set(w.key, n); cloudEl.append(n); n.style.left = (p.x + p.w/2) + "px"; n.style.top = (p.y + p.h/2) + "px"; n.style.fontSize = "1px"; n.classList.add("new"); requestAnimationFrame(() => setPos(n, p)); }
-      else { if (fresh.has(w.key)) { n.classList.remove("new"); void n.offsetWidth; n.classList.add("new"); } setPos(n, p); }
-      n.textContent = w.label; n.title = w.n + "×";
+      if (!n) { n = el("span", { class: "w", title: "", role:"button", tabindex:"0", onclick: () => askHide(w.key), onkeydown:e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();askHide(w.key);}} }); nodes.set(w.key, n); cloudEl.append(n); n.style.left = (p.x + p.w/2) + "px"; n.style.top = (p.y + p.h/2) + "px"; n.style.fontSize = "1px"; n.classList.add("new"); requestAnimationFrame(() => setPos(n, p)); }
+      else { if (w.keys.some(k=>fresh.has(k))) { n.classList.remove("new"); void n.offsetWidth; n.classList.add("new"); } setPos(n, p); }
+      n.textContent = w.label; n.title = `${w.n}× genannt${w.variants.length>1?" · "+w.variants.length+" Schreibweisen":""}${w.notes.length?" · "+w.notes.length+" Notizen":""} – Details öffnen`; n.setAttribute("aria-label",w.label+", "+n.title);
       n.classList.remove("c0","c1","c2","c3","c4","c5","c6"); n.classList.add("c" + (i < 2 ? i : hash(w.key) % 7));
     });
     fresh.clear();
@@ -503,7 +705,7 @@ function startHost(code){
     const rects = []; const out = [];
     for (const w of words) {
       const t = max === min ? 1 : Math.sqrt((w.n - min) / (max - min));
-      const size = Math.max(16, Math.round(base * (0.32 + 0.68 * t)));
+      const size = Math.max(12, Math.round(base * (0.32 + 0.68 * t)));
       ctx.font = `900 ${size}px Nunito, "Arial Rounded MT Bold", sans-serif`;
       const ww = Math.ceil(ctx.measureText(w.label).width) + size * 0.25, hh = Math.ceil(size * 1.08);
       let ok = null; const seed = hash(w.key) % 360;
@@ -519,249 +721,282 @@ function startHost(code){
     }
     return out;
   }
-  let hideKey = null;
+  /* ---- Cluster, Themen und Notizen ---- */
+  let activeCluster=null;
   function askHide(key){
-    const w = S.words[key]; if (!w) return; hideKey = key;
-    $("dwTitle").textContent = w.label; $("dwText").textContent = `${w.n}× genannt. Ausblenden entfernt den Begriff von Beamer und Handys.`;
-    $("dlgWord").hidden = false;
+    const w=visibleWords().find(x=>x.key===key);if(!w)return;activeCluster=w;
+    $("dwTitle").textContent=w.label;
+    $("dwText").textContent=`${w.n}× genannt. Ausblenden entfernt den Begriff bzw. das Cluster aus der aktuellen Runde und dem neuen Themenspeicher.`;
+    const details=topicDetails(w,"dialog",true);$("dwDetails").replaceChildren(...(details?[details]:[]));
+    $("dwSplit").hidden=w.keys.length<2;$("dlgWord").hidden=false;
   }
-  $("dwCancel").onclick = () => $("dlgWord").hidden = true;
-  $("dwHide").onclick = () => { if (hideKey) S.hidden[hideKey] = 1; $("dlgWord").hidden = true; changed(); };
-
-  /* ---- Themen auswählen ---- */
+  $("dwCancel").onclick=()=>{$("dlgWord").hidden=true;activeCluster=null;};
+  $("dwHide").onclick=()=>{if(activeCluster)for(const k of activeCluster.keys)S.hidden[k]=1;$("dlgWord").hidden=true;activeCluster=null;changed();};
+  $("dwSplit").onclick=()=>{if(activeCluster)for(const k of activeCluster.keys)S.separate[k]=1;$("dlgWord").hidden=true;activeCluster=null;changed();toast("Schreibweisen getrennt");};
   function ensurePicks(){
-    if (S.pickInit) return;
-    visibleWords().slice(0, 7).forEach((w) => S.picked["w:" + w.key] = 1);
-    S.pickInit = true;
-  }
-  function pickItems(){
-    const items = visibleWords().map((w) => ({ id: "w:" + w.key, label: w.label, n: w.n }));
-    for (const c of (S.custom || [])) items.push({ id: c.id, label: c.label, n: null });
-    return items;
+    if(S.pickInit)return;visibleWords().slice(0,7).forEach(w=>S.picked["w:"+w.key]=1);S.pickInit=true;
   }
   function renderSetup(){
-    ensurePicks();
-    const box = $("hPick"); box.replaceChildren();
-    const items = pickItems();
-    if (!items.length) box.append(el("p", { class:"muted", text:"Noch keine Begriffe. Ergänze rechts eigene Themen." }));
-    for (const it of items) {
-      const cb = el("input", { type:"checkbox", id:"pk_" + it.id.replace(/[^a-z0-9]/gi, "_") });
-      cb.checked = !!S.picked[it.id];
-      cb.onchange = () => { if (cb.checked) S.picked[it.id] = 1; else delete S.picked[it.id]; save(); $("hPickCount").textContent = items.filter((x) => S.picked[x.id]).length; };
-      box.append(el("label", {}, cb, el("span", { text: it.label }), el("span", { class:"n", text: it.n ? it.n + "×" : "eigenes Thema" })));
-    }
-    $("hPickCount").textContent = items.filter((x) => S.picked[x.id]).length;
-  }
-  $("addForm").onsubmit = (e) => {
-    e.preventDefault(); const label = clean($("addTopic").value, 60); if (!label) return;
-    S.custom = S.custom || []; const id = "c:" + rid(6); S.custom.push({ id, label }); S.picked[id] = 1; $("addTopic").value = ""; changed();
-  };
-  $("btnStartRank").onclick = () => {
-    const items = pickItems().filter((x) => S.picked[x.id]);
-    if (items.length < 2) return toast("Bitte mindestens zwei Themen auswählen.");
-    const same = S.topics.length === items.length && items.every((x, i) => S.topics[i]?.id === x.id);
-    if (!same) { S.topics = items.map((x) => ({ id: x.id, label: x.label })); S.ranks = {}; S.boosts = {}; }
-    S.phase = "rank"; changed();
-  };
-  $("btnShowAgenda").onclick = () => { S.phase = "result"; changed(); };
-
-  /* ---- Steuerung ---- */
-  document.querySelectorAll(".step").forEach((b) => b.onclick = () => {
-    const p = b.dataset.phase;
-    if (p === "rank" && S.topics.length < 2) { S.phase = "setup"; toast("Erst Themen auswählen."); }
-    else if (p === "result" && !S.topics.length) { toast("Es gibt noch kein Ranking."); return; }
-    else S.phase = p;
-    changed();
-  });
-  $("btnFull").onclick = () => { const d = document.documentElement; (document.fullscreenElement ? document.exitFullscreen() : d.requestFullscreen?.())?.catch?.(() => {}); };
-  $("btnSettings").onclick = () => {
-    $("setQuestion").value = S.question; $("setMax").value = S.maxWords; $("setClean").checked = document.body.classList.contains("clean");
-    $("dlgSettings").hidden = false;
-  };
-  $("btnCloseSettings").onclick = () => $("dlgSettings").hidden = true;
-  $("settingsForm").onsubmit = (e) => {
-    e.preventDefault();
-    S.question = clean($("setQuestion").value, 90) || S.question;
-    S.maxWords = Math.min(20, Math.max(1, parseInt($("setMax").value, 10) || 3));
-    document.body.classList.toggle("clean", $("setClean").checked); store.set("aw:clean", $("setClean").checked);
-    $("dlgSettings").hidden = true; changed();
-  };
-  $("btnReset").onclick = async () => {
-    $("dlgSettings").hidden = true;
-    if (await confirmBox("Neue Runde starten?", "Es gibt einen neuen Code und eine leere Wortwolke. Die aktuelle Runde bleibt über „letzte Runde fortsetzen“ nicht mehr erreichbar.", "Neue Runde")) {
-      conn.pub("state", { v:1, round:"ended", phase:"ended", t:Date.now() }, true);
-      setTimeout(() => location.href = hostUrl(rid(5)), 300);
-    }
-  };
-
-  /* ---- Anzeige ---- */
-  const SUB = { cloud:"Begriffe sammeln", setup:"Themen wählen", rank:"Themen ranken", result:"Ergebnis des Rankings" };
-  function render(){
-    $("hQuestion").textContent = S.phase === "result" ? "Unsere Agenda für heute" : S.phase === "rank" ? "In welcher Reihenfolge?" : S.question;
-    $("hSub").textContent = SUB[S.phase];
-    $("hPeople").textContent = Object.keys(S.people).length;
-    document.querySelectorAll(".step").forEach((b) => b.classList.toggle("on", b.dataset.phase === S.phase));
-    const ph = S.phase;
-    $("hCloud").hidden = ph !== "cloud"; $("hSetup").hidden = ph !== "setup"; $("hRank").hidden = ph !== "rank"; $("hAgenda").hidden = ph !== "result";
-    if (ph !== "cloud") $("hEmpty").hidden = true;
-    if (ph === "cloud") layoutCloud();
-    if (ph === "setup") renderSetup();
-    if (ph === "rank") {
-      $("hTopics").replaceChildren(...S.topics.map((t) => el("span", { class:"tchip", text:t.label })));
-      $("hRanked").textContent = Object.keys(S.ranks).length;
-    }
-    if (ph === "result") {
-      const ag = agenda(); const box = $("hAgenda");
-      const sig = JSON.stringify(ag.map((a) => [a.id, a.boosts]));
-      if (box.dataset.sig !== sig) {
-        box.dataset.sig = sig;
-        box.replaceChildren(...ag.map((a, i) => {
-          const meta = el("div", { class:"meta" });
-          if (a.boosts) meta.append(el("span", { class:"boost", text: "nach vorne geholt" + (a.boosts > 1 ? " ×" + a.boosts : "") }));
-          if (a.avg) meta.append(el("span", { text: "Ø Platz " + a.avg.toFixed(1).replace(".", ",") }));
-          const row = el("div", { class:"ag" }, el("div", { class:"num", text: String(i + 1) }), el("div", { class:"t", text: a.label }), meta);
-          row.style.animationDelay = (i * 0.08) + "s"; return row;
-        }));
-        if (!ag.length) box.append(el("p", { class:"muted", text:"Noch keine Themen." }));
-        box.append(el("div", { style:"display:flex;gap:10px;margin-top:8px;flex-wrap:wrap" },
-          el("button", { class:"btn ghost small", type:"button", text:"Agenda als Text kopieren", onclick: () => copyAgenda(ag) }),
-          el("span", { class:"muted", style:"align-self:center", text: Object.keys(S.ranks).length + " Reihenfolgen ausgewertet" })));
+    ensurePicks();const box=$("hPick"),opened=openDetails(box);box.replaceChildren();
+    const items=pickItems();
+    if(!items.length)box.append(el("p",{class:"muted",text:"Noch keine Begriffe. Ergänze rechts eigene Themen."}));
+    const groups=[{label:"Aktuelle Begriffe",items:items.filter(x=>x.n!==null)},{label:"Ergänzte Themen",items:items.filter(x=>x.n===null&&!x.carried)},{label:"Themenspeicher · frühere Meetings",items:items.filter(x=>x.n===null&&x.carried)}];
+    for(const group of groups){
+      if(!group.items.length)continue;box.append(el("div",{class:"section-label",text:group.label}));
+      for(const it of group.items){
+        const cb=el("input",{type:"checkbox"});cb.checked=!!S.picked[it.id];
+        cb.onchange=()=>{if(cb.checked)S.picked[it.id]=1;else delete S.picked[it.id];save();$("hPickCount").textContent=items.filter(x=>S.picked[x.id]).length;};
+        box.append(el("div",{class:"pick-item"},el("label",{},cb,el("span",{},it.label,it.carried?el("span",{class:"backlog-tag",style:"display:block",text:"Aus dem Themenspeicher"}):null),el("span",{class:"n",text:it.n?it.n+"×":it.carried?"offen":"eigenes Thema"})),topicDetails(it,"pick:"+it.id)));
       }
     }
+    $("hPickCount").textContent=items.filter(x=>S.picked[x.id]).length;showDetails(box,opened);
   }
-  function copyAgenda(ag){
-    const txt = "Agenda\n" + ag.map((a, i) => `${i + 1}. ${a.label}`).join("\n");
-    navigator.clipboard?.writeText(txt).then(() => toast("Agenda kopiert"), () => toast("Kopieren nicht möglich"));
+  $("addForm").onsubmit=e=>{
+    e.preventDefault();const label=clean($("addTopic").value,60);if(!norm(label))return;
+    const existing=pickItems().find(x=>folded(x.label)===folded(label));
+    if(existing){S.picked[existing.id]=1;toast("Vorhandenes Thema ausgewählt");}
+    else {const id="c:"+rid(6);S.custom.push({id,label});S.picked[id]=1;}
+    $("addTopic").value="";changed();
+  };
+  function startRank(){
+    const items=pickItems().filter(x=>S.picked[x.id]);if(!items.length)return toast("Bitte mindestens ein Thema auswählen.");
+    const topics=items.map(topicData),same=S.topics.length===topics.length&&topics.every((x,i)=>S.topics[i]?.id===x.id);
+    if(!same){S.ranks=dict();S.agendaLimit=null;}
+    S.topics=topics;S.phase="rank";changed();
   }
-  let rs; window.addEventListener("resize", () => { clearTimeout(rs); rs = setTimeout(() => S.phase === "cloud" && layoutCloud(), 150); });
-
+  $("btnStartRank").onclick=startRank;
+  $("btnShowAgenda").onclick=()=>{S.phase="result";changed();};
+  async function reveal(){
+    if(S.revealed){S.phase="cloud";changed();return;}
+    if(!participants().length||ready()<participants().length){
+      if(!(await confirmBox("Runde 2 bereits öffnen?","Noch nicht alle Teilnehmenden haben drei Begriffe eingereicht. Wer noch nicht fertig ist, sieht am Handy die gemeinsame Wortwolke erst nach den eigenen drei Begriffen.","Trotzdem öffnen")))return;
+    }
+    S.revealed=true;S.phase="cloud";changed();
+  }
+  $("btnReveal").onclick=reveal;
+  document.querySelectorAll(".step").forEach(b=>b.onclick=()=>{
+    const p=b.dataset.phase;
+    if(!S.revealed&&p!=="solo"){if(p==="cloud")reveal();else toast("Bitte zuerst die gemeinsame Wortwolke freigeben.");return;}
+    if(p==="solo"&&S.revealed)return toast("Runde 1 ist beendet. Die Begriffe wurden bereits gezeigt.");
+    if(p==="rank"){if(S.phase==="cloud"||S.phase==="setup"||!S.topics.length){if(S.phase!=="setup"){S.phase="setup";changed();}else startRank();return;}}
+    if(p==="result"){if(!S.topics.length){toast("Bitte erst Themen auswählen und ranken.");return;}if(S.phase==="setup"||S.phase==="cloud"){toast("Bitte zuerst das Ranking mit der aktuellen Auswahl starten.");return;}}
+    S.phase=p;changed();
+  });
+  $("btnFull").onclick=()=>{const d=document.documentElement;(document.fullscreenElement?document.exitFullscreen():d.requestFullscreen?.())?.catch?.(()=>{});};
+  $("btnSettings").onclick=()=>{$("setQuestion").value=S.question;$("setMax").value=S.extraWords;$("setClean").checked=document.body.classList.contains("clean");$("dlgSettings").hidden=false;};
+  $("btnCloseSettings").onclick=()=>$("dlgSettings").hidden=true;
+  $("settingsForm").onsubmit=e=>{
+    e.preventDefault();S.question=clean($("setQuestion").value,90)||S.question;
+    S.extraWords=Math.min(20,Math.max(0,parseInt($("setMax").value,10)||0));
+    document.body.classList.toggle("clean",$("setClean").checked);store.set("aw:clean",$("setClean").checked);
+    $("dlgSettings").hidden=true;changed();
+  };
+  $("btnReset").onclick=async()=>{
+    $("dlgSettings").hidden=true;
+    if(!await confirmBox("Neue Runde starten?","Eine neue Runde erhält einen neuen Code. Nicht in die letzte Agenda übernommene Themen bleiben im Themenspeicher. Falls noch keine Agenda erstellt wurde, werden alle sichtbaren Begriffe gespeichert.","Neue Runde"))return;
+    const result=archiveMeeting(S,pickItems(),S.phase==="result"?agenda().map(a=>a.id):S.lastAgendaIds||[]);
+    if(!result.ok){toast("Themenspeicher konnte nicht gespeichert werden.");return;}
+    save();clearTimeout(pubTimer);conn.pub("state",{v:2,round:"ended",phase:"ended",t:Date.now()},true);setTimeout(()=>location.href=hostUrl(rid(5)),250);
+  };
+  /* ---- Figma-ähnlicher, gemeinsam synchronisierter Timer ---- */
+  function tickHost(){
+    if(S.timer.endsAt&&timerRemaining(S.timer)===0){S.timer.endsAt=null;S.timer.remaining=0;save();publish();}
+    timerView(S.timer,"h");
+  }
+  function setTimer(t){S.timer=t;save();tickHost();publish();}
+  $("timerEdit").onclick=()=>{
+    $("timerMinutes").value=Math.floor(S.timer.duration/60);$("timerSeconds").value=S.timer.duration%60;$("dlgTimer").hidden=false;$("timerMinutes").focus();
+  };
+  $("timerCancel").onclick=()=>$("dlgTimer").hidden=true;
+  document.querySelectorAll("[data-min]").forEach(b=>b.onclick=()=>{$("timerMinutes").value=b.dataset.min;$("timerSeconds").value=0;});
+  $("timerForm").onsubmit=e=>{
+    e.preventDefault();const duration=Number($("timerMinutes").value)*60+Number($("timerSeconds").value);
+    if(!Number.isInteger(duration)||duration<1||duration>5999)return toast("Bitte eine Dauer zwischen 1 Sekunde und 99:59 einstellen.");
+    $("dlgTimer").hidden=true;setTimer({duration,remaining:duration,endsAt:null});
+  };
+  $("timerToggle").onclick=()=>{
+    const n=timerRemaining(S.timer);
+    if(S.timer.endsAt&&n>0)setTimer({...S.timer,remaining:n,endsAt:null});
+    else {const remaining=n||S.timer.duration;setTimer({...S.timer,remaining,endsAt:Date.now()+remaining*1000});}
+  };
+  $("timerPlus").onclick=()=>{
+    const n=timerRemaining(S.timer),add=Math.min(60,5999-n);if(!add)return;
+    setTimer({duration:Math.min(5999,S.timer.duration+add),remaining:n+add,endsAt:S.timer.endsAt&&n>0?S.timer.endsAt+add*1000:null});
+  };
+  $("timerReset").onclick=()=>setTimer({...S.timer,remaining:S.timer.duration,endsAt:null});
+  /* ---- Anzeige ---- */
+  const SUB={solo:"Runde 1 · Eigene Begriffe",cloud:"Runde 2 · Gemeinsame Wortwolke",setup:"Themen wählen",rank:"Themen ranken",result:"Ergebnis des Rankings"};
+  function render(){
+    $("hQuestion").textContent=S.phase==="result"?"Unsere Agenda für heute":S.phase==="rank"?"In welcher Reihenfolge?":S.question;
+    $("hSub").textContent=SUB[S.phase];$("hPeople").textContent=participants().length;
+    document.querySelectorAll(".step").forEach(b=>b.classList.toggle("on",b.dataset.phase===S.phase));
+    for(const [p,id] of Object.entries({solo:"hSolo",cloud:"hCloud",setup:"hSetup",rank:"hRank",result:"hAgenda"}))$(id).hidden=S.phase!==p;
+    if(S.phase!=="cloud")$("hEmpty").hidden=true;
+    if(S.phase==="solo"){
+      const n=participants().length,r=ready();$("hReady").textContent=`${r} / ${n}`;$("hReadyFill").style.width=(n?100*r/n:0)+"%";
+      $("hReadyHint").textContent=n&&r===n?"Alle sind bereit. Du kannst die gemeinsame Wortwolke öffnen.":"Die Moderation gibt Runde 2 frei, sobald alle fertig sind.";
+    }
+    if(S.phase==="cloud"){layoutCloud();if(!visibleWords().length){$("hEmpty").querySelector("b").textContent="Noch keine Begriffe";$("hEmpty").querySelector("span").textContent="QR Code scannen und die ersten drei Begriffe eingeben.";}}
+    if(S.phase==="setup")renderSetup();
+    if(S.phase==="rank"){
+      const box=$("hTopics"),opened=openDetails(box);box.replaceChildren(...S.topics.map(t=>topicStack(t,"rank-host:"+t.id,"tchip")));showDetails(box,opened);$("hRanked").textContent=Object.keys(S.ranks).length;
+    }
+    if(S.phase==="result")renderAgenda();
+    timerView(S.timer,"h");
+  }
+  function renderAgenda(){
+    const all=agendaAll(),ag=agenda(),box=$("hAgenda"),items=pickItems(),selected=new Set(ag.map(a=>a.id)),deferred=items.filter(i=>!selected.has(i.id));
+    const sig=JSON.stringify([ag,all.length,S.agendaLimit,deferred,Object.keys(S.ranks).length]);
+    if(archiveSig!==sig){archived=archiveMeeting(S,items,[...selected]);archiveSig=archived.ok?sig:null;if(archived.ok)S.lastAgendaIds=[...selected];}
+    if(box.dataset.sig===sig&&archived?.ok)return;
+    box.dataset.sig=sig;const opened=openDetails(box);
+    const count=el("select",{class:"field",id:"agendaLimit","aria-label":"Anzahl Agendapunkte"},el("option",{value:"all",text:`Alle (${all.length})`}),...Array.from({length:all.length+1},(_,i)=>el("option",{value:String(i),text:i===0?"Keine (alle zurückstellen)":`Top ${i}`})));
+    count.value=S.agendaLimit===null?"all":String(Math.min(all.length,S.agendaLimit));count.onchange=()=>{S.agendaLimit=count.value==="all"?null:Number(count.value);changed();};
+    box.replaceChildren(el("div",{class:"result-controls"},el("label",{for:"agendaLimit",class:"label",text:"In die Agenda übernehmen"}),count,el("span",{class:"muted",text:`${Object.keys(S.ranks).length} Reihenfolgen ausgewertet`})));
+    ag.forEach((a,i)=>{
+      const meta=el("div",{class:"meta"});if(a.avg)meta.append(el("span",{text:"Ø Platz "+a.avg.toFixed(1).replace(".",",")}));
+      const row=el("div",{class:"ag"},el("div",{class:"num",text:String(i+1)}),el("div",{class:"topic-stack"},el("div",{class:"t",text:a.label}),topicDetails(a,"ag-host:"+a.id)),meta);
+      row.style.animationDelay=i*.06+"s";box.append(row);
+    });
+    if(!ag.length)box.append(el("p",{class:"muted",text:"Keine Themen in der aktuellen Agenda."}));
+    box.append(el("div",{class:"result-controls"},el("button",{class:"btn ghost small",type:"button",text:"Agenda als Text kopieren",onclick:()=>copyText("Agenda\n"+ag.map((a,i)=>`${i+1}. ${a.label}${(a.notes||[]).map(n=>"\n   - "+n.text).join("")}`).join("\n"),"Agenda kopiert")})));
+    const card=el("div",{class:"archive-card"},el("h3",{text:`Themenspeicher · ${deferred.length} zurückgestellt`}),el("p",{class:"muted",text:archived?.ok?"Automatisch in diesem Browser gespeichert. Beim nächsten Meeting stehen diese Themen inklusive Notizen wieder zur Auswahl.":"Speichern fehlgeschlagen. Bitte den Themenspeicher kopieren und den Browser-Speicher prüfen."}));
+    if(deferred.length){
+      const d=el("details",{"data-detail":"archive-list"},el("summary",{text:"Zurückgestellte Themen anzeigen"}),el("div",{class:"shared-list",style:"margin-top:8px"},...deferred.map(it=>sharedItem(it,"archive:"+it.id,"offen"))));card.append(d);
+      card.append(el("button",{class:"btn ghost small",type:"button",style:"align-self:flex-start",text:"Themenspeicher als Text kopieren",onclick:()=>copyText("Offene Themen\n"+deferred.map(a=>`- ${a.label}${(a.notes||[]).map(n=>"\n  - "+n.text).join("")}`).join("\n"),"Themenspeicher kopiert")}));
+    }
+    box.append(card);showDetails(box,opened);
+  }
+  function copyText(txt,success){if(!navigator.clipboard)return toast("Kopieren nicht möglich");navigator.clipboard.writeText(txt).then(()=>toast(success),()=>toast("Kopieren nicht möglich"));}
+  let rs;window.addEventListener("resize",()=>{clearTimeout(rs);rs=setTimeout(()=>S.phase==="cloud"&&layoutCloud(),150);});
   /* ---- QR und Verbindung ---- */
   function showJoin(){
-    const url = joinUrl(code, S.broker);
-    const qr = qrcode(0, "M"); qr.addData(url); qr.make();
-    $("hQr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
-    $("hCode").textContent = code;
-    const short = new URL(location.href); $("hUrl").textContent = short.host + short.pathname.replace(/index\.html$/, "");
+    const url=joinUrl(code,S.broker),qr=qrcode(0,"M");qr.addData(url);qr.make();
+    $("hQr").innerHTML=qr.createSvgTag({cellSize:4,margin:0,scalable:true});$("hCode").textContent=code;
+    const short=new URL(location.href);$("hUrl").textContent=short.host+short.pathname.replace(/index\.html$/,"");
   }
-  history.replaceState(null, "", hostUrl(code));
-  showJoin(); render();
-  document.fonts?.ready.then(() => S.phase === "cloud" && layoutCloud());
-  conn = connect(code, S.broker, (sub, m) => { if (sub === "in") handleIn(m); }, (st) => {
-    setStatus("hStatus", st, st === "on" ? "live verbunden" : st === "err" ? "Verbindung unterbrochen, versuche erneut" : "verbinde…");
-    if (st === "on") conn && conn.pub("state", publicState(), true);
+  history.replaceState(null,"",hostUrl(code));showJoin();render();save();tickHost();setInterval(tickHost,200);
+  document.fonts?.ready.then(()=>S.phase==="cloud"&&layoutCloud());
+  conn=connect(code,S.broker,(sub,m)=>{if(sub==="in")handleIn(m);},st=>{
+    setStatus("hStatus",st,st==="on"?"live verbunden":st==="err"?"Verbindung unterbrochen, versuche erneut":"verbinde…");if(st==="on")publish();
   });
-  conn.canSwitch = true;
-  conn.onSwitch = (i) => { S.broker = i; save(); showJoin(); toast("Live Server gewechselt. Bitte den QR Code neu scannen."); };
-  conn.subscribe("in");
+  conn.canSwitch=true;conn.onSwitch=i=>{S.broker=i;save();showJoin();toast("Live Server gewechselt. Bitte den QR Code neu scannen.");};conn.subscribe("in");
 }
-
 /* ================== Handy ================== */
-function startPhone(code, brokerIdx){
-  $("phone").hidden = false;
-  $("pCode").textContent = "Runde " + code;
-  let pid = LOCAL ? null : store.get("aw:pid"); if (!pid) { pid = rid(12); if (!LOCAL) store.set("aw:pid", pid); }
-  let st = null, conn, myOrder = null, sentOrder = null, lastRound = null;
-  const mine = (!LOCAL && store.get("aw:mine:" + code)) || {};
-  const saveMine = () => store.set("aw:mine:" + code, mine);
-  const send = (obj) => conn.pub("in", Object.assign({ pid, id: rid(10), round: st?.round }, obj));
-  const body = $("pBody");
-  let lastPhase = null, inputDraft = "";
-
+function startPhone(code,brokerIdx){
+  $("phone").hidden=false;$("pCode").textContent="Runde "+code;
+  let pid;
+  if(LOCAL){try{pid=sessionStorage.getItem("aw:testPid");if(!pid){pid=rid(12);sessionStorage.setItem("aw:testPid",pid);}}catch(e){pid=rid(12);}}
+  else {pid=store.get("aw:pid");if(!pid){pid=rid(12);store.set("aw:pid",pid);}}
+  const mineKey="aw:mine:v2:"+code+":"+pid;
+  let mine=store.get(mineKey)||{},st=null,conn,myOrder=null,sentOrder=null,connected=false;
+  let inputDraft="",noteDraft="",noteOpen=false;const lastAttempts=new Map();
+  const saveMine=()=>store.set(mineKey,mine);
+  const send=obj=>{if(conn)conn.pub("in",{pid,id:rid(10),round:st?.round,...obj});};
+  const body=$("pBody");
+  const entries=()=>mine.entries||[];
+  const confirmed=()=>st?.used?.[pid]||0;
+  const pending=()=>entries().filter(e=>!e.confirmed);
+  function syncMine(){
+    if(mine.round!==st.round){mine={round:st.round,entries:[],order:null,sentOrder:null};myOrder=null;sentOrder=null;inputDraft="";noteDraft="";noteOpen=false;lastAttempts.clear();saveMine();}
+    const acks=new Set(st.receipts?.[pid]||[]);let dirty=false;
+    for(const e of entries())if(!e.confirmed&&acks.has(e.id)){e.confirmed=true;dirty=true;lastAttempts.delete(e.id);}
+    if(dirty)saveMine();
+  }
+  function retryPending(force=false){
+    if(!st||!connected||!conn||!["solo","cloud"].includes(st.phase))return;
+    for(const e of pending()){
+      if(force||Date.now()-(lastAttempts.get(e.id)||0)>2500){lastAttempts.set(e.id,Date.now());send({t:"word",id:e.id,text:e.text,note:e.note});}
+    }
+  }
+  function focusState(){const a=document.activeElement;return a&&(a.id==="pWord"||a.id==="pNote")?{id:a.id,start:a.selectionStart,end:a.selectionEnd}:null;}
+  function restoreFocus(f){if(!f)return;const a=$(f.id);if(!a||a.disabled)return;a.focus({preventScroll:true});try{a.setSelectionRange(f.start,f.end);}catch(e){}}
   function render(){
-    if (!st) { body.replaceChildren(el("div", { class:"wait" }, el("b", { text:"Einen Moment" }), "Warte auf den Beamer. Ist die Runde schon gestartet?")); return; }
-    if (st.phase === "ended") { body.replaceChildren(el("div", { class:"wait" }, el("b", { text:"Diese Runde ist beendet" }), "Scanne den neuen QR Code am Beamer.")); return; }
-    if (st.round !== lastRound) { lastRound = st.round; if (mine.round !== st.round) { mine.round = st.round; mine.words = []; mine.order = null; mine.boost = null; saveMine(); } }
-    const active = document.activeElement; if (active && active.id === "pWord") inputDraft = active.value;
-    if (st.phase === "cloud") renderCloud();
-    else if (st.phase === "setup") body.replaceChildren(el("div", { class:"wait" }, el("b", { text:"Gleich geht es weiter" }), "Die Themen für das Ranking werden gerade ausgewählt."));
-    else if (st.phase === "rank") renderRank();
-    else if (st.phase === "result") renderResult();
-    lastPhase = st.phase;
+    if(!st){body.replaceChildren(el("div",{class:"wait"},el("b",{text:"Einen Moment"}),"Warte auf den Beamer. Ist die Runde schon gestartet?"));return;}
+    if(st.phase==="ended"){$("pTimer").hidden=true;body.replaceChildren(el("div",{class:"wait"},el("b",{text:"Diese Runde ist beendet"}),"Scanne den neuen QR Code am Beamer."));return;}
+    const focus=focusState(),opened=openDetails(body);
+    if(st.phase==="solo"||st.phase==="cloud")renderCollection();
+    else if(st.phase==="setup")body.replaceChildren(el("div",{class:"wait"},el("b",{text:"Gleich geht es weiter"}),"Die Themen für das Ranking werden gerade ausgewählt.",pending().length?el("p",{text:"Nicht bestätigte Begriffe konnten noch nicht übernommen werden."}):null));
+    else if(st.phase==="rank")renderRank();
+    else if(st.phase==="result")renderResult();
+    showDetails(body,opened);restoreFocus(focus);
   }
-
-  function renderCloud(){
-    const used = st.used?.[pid] || 0, left = Math.max(0, st.maxWords - used);
-    const input = el("input", { class:"field", id:"pWord", maxlength:"40", placeholder:"Ein Begriff", autocomplete:"off", enterkeyhint:"send", "aria-label":"Begriff" });
-    input.value = inputDraft;
-    const form = el("form", { class:"sendrow" }, input, el("button", { class:"btn", type:"submit", text:"Senden", disabled: left === 0 }));
-    form.onsubmit = (e) => {
-      e.preventDefault(); const t = clean(input.value, 40); if (!t) return;
-      if (left === 0) return;
-      send({ t:"word", text:t }); mine.words = [...(mine.words || []), t]; saveMine();
-      input.value = ""; inputDraft = ""; toast("Gesendet"); render(); setTimeout(() => $("pWord")?.focus(), 30);
-    };
-    const kids = [ el("div", { class:"label", text:"Wortwolke" }), el("h2", { class:"p-q", text: st.question }) ];
-    if (left > 0) kids.push(form, el("div", { class:"muted", text: left === 1 ? "Noch 1 Begriff möglich" : `Noch ${left} Begriffe möglich` }));
-    else kids.push(el("div", { class:"ok", text:"Danke! Deine Begriffe sind am Beamer." }));
-    if ((mine.words || []).length) kids.push(el("div", { class:"label", text:"Deine Begriffe" }), el("div", { class:"mine" }, ...mine.words.map((w) => el("span", { text:w }))));
+  function renderCollection(){
+    const used=confirmed(),waiting=pending().length,privateRound=st.phase==="solo"||used<SOLO_WORDS;
+    const limit=privateRound?SOLO_WORDS:SOLO_WORDS+(st.extraWords??3),left=Math.max(0,limit-used-waiting);
+    const kids=[el("div",{class:"label",text:privateRound?"Runde 1 von 2 · Eigene Begriffe":"Runde 2 von 2 · Gemeinsame Wortwolke"}),el("h2",{class:"p-q",text:st.question})];
+    kids.push(el("p",{class:"muted",style:"margin:0",text:privateRound?"Notiere drei eigene Begriffe, ohne die Antworten der anderen zu sehen.":"Hier siehst du die gemeinsamen Themen. Du kannst weitere Begriffe ergänzen und zugehörige Notizen aufklappen."}));
+    if(privateRound)kids.push(el("div",{class:"solo-progress",role:"progressbar","aria-label":"Eigene Begriffe eingereicht","aria-valuemin":"0","aria-valuemax":"3","aria-valuenow":String(Math.min(used,3))},el("div",{style:`width:${Math.min(100,100*used/SOLO_WORDS)}%`})),el("div",{class:"muted",text:`${Math.min(used,3)} von 3 Begriffen bestätigt${waiting?` · ${waiting} werden übertragen`:""}`}));
+    if(left>0){
+      const input=el("input",{class:"field",id:"pWord",maxlength:"40",placeholder:"Ein Begriff",autocomplete:"off",enterkeyhint:"send","aria-label":"Begriff",required:true});input.value=inputDraft;
+      input.oninput=()=>inputDraft=input.value;
+      const note=el("textarea",{class:"field",id:"pNote",maxlength:"500",rows:"3",placeholder:"Was genau meinst du damit?","aria-label":"Notiz zum Begriff"});note.value=noteDraft;note.oninput=()=>noteDraft=note.value;
+      const details=el("details",{id:"pNoteEntry",class:"note-entry",open:noteOpen},el("summary",{text:"Notiz hinzufügen (optional)"}),note,el("span",{class:"muted",text:"Die Notiz wird mit deinem Begriff in der gemeinsamen Wortwolke sichtbar."}));
+      details.ontoggle=()=>{noteOpen=details.open;};
+      const form=el("form",{class:"word-send"},el("div",{class:"sendrow"},input,el("button",{class:"btn",type:"submit",text:"Senden"})),details);
+      form.onsubmit=e=>{
+        e.preventDefault();const text=clean(input.value,40),n=noteText(note.value);if(!norm(text))return toast("Bitte einen Begriff eingeben.");
+        if(left<=0)return;
+        const entry={id:rid(10),text,note:n,confirmed:false};mine.entries=[...entries(),entry];saveMine();inputDraft="";noteDraft="";
+        // Clear the DOM values as well, before preserving focus during rerendering.
+        input.value="";note.value="";retryPending(true);render();$("pWord")?.focus();
+      };
+      kids.push(form,el("div",{class:"muted",text:privateRound?`Noch ${left} ${left===1?"eigener Begriff":"eigene Begriffe"} möglich`:`Noch ${left} ${left===1?"zusätzlicher Begriff":"zusätzliche Begriffe"} möglich`}));
+    }else if(waiting)kids.push(el("div",{class:"muted",text:"Deine Begriffe werden übertragen. Bitte warte auf die Bestätigung."}));
+    else if(st.phase==="solo")kids.push(el("div",{class:"ok",text:"Geschafft! Deine drei Begriffe sind angekommen. Warte, bis die Moderation Runde 2 öffnet."}));
+    else kids.push(el("div",{class:"ok",text:"Danke! Deine Begriffe sind Teil der gemeinsamen Wortwolke."}));
+    if(entries().length){
+      kids.push(el("div",{class:"label",text:"Deine Begriffe"}),el("div",{class:"mine"},...entries().map(e=>el("div",{class:"mine-item"},el("div",{class:"word-line"},el("span",{text:e.text}),el("small",{text:e.confirmed?"✓ bestätigt":"wird übertragen"})),topicDetails({label:e.text,notes:e.note?[{word:e.text,text:e.note}]:[]},"mine:"+e.id)))));
+    }
+    // Late joiners must complete their own three entries before seeing the shared list.
+    if(!privateRound){
+      const words=st.words||[];
+      kids.push(el("div",{class:"label",text:`Gemeinsame Begriffe · ${words.length} Themen`}),el("div",{class:"shared-list"},...words.map(w=>sharedItem(w,"shared:"+w.key,w.n+"×"))));
+    }
     body.replaceChildren(...kids);
-    if (lastPhase === "cloud" && active_was_input) setTimeout(() => $("pWord")?.focus(), 0);
   }
-  let active_was_input = false;
-  document.addEventListener("focusin", (e) => active_was_input = e.target.id === "pWord");
-
+  function sameSet(a,b){return a.length===b.length&&a.every(x=>b.includes(x));}
+  function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
   function renderRank(){
-    const ids = st.topics.map((t) => t.id);
-    if (!myOrder || myOrder.join() === "" || !sameSet(myOrder, ids)) {
-      myOrder = mine.order && sameSet(mine.order, ids) ? mine.order.slice() : shuffle(ids.slice());
+    const ids=st.topics.map(t=>t.id);
+    if(!myOrder||!sameSet(myOrder,ids)){
+      myOrder=mine.order&&sameSet(mine.order,ids)?mine.order.slice():shuffle(ids.slice());
+      sentOrder=mine.sentOrder&&sameSet(mine.sentOrder,ids)?mine.sentOrder.slice():null;
     }
-    const label = (id) => st.topics.find((t) => t.id === id)?.label || "";
-    const sent = st.ranked?.includes(pid);
-    const changedSinceSend = !sentOrder || sentOrder.join() !== myOrder.join();
-    const list = el("ol", { class:"rlist" }, ...myOrder.map((id, i) => el("li", {},
-      el("span", { class:"pos", text:String(i + 1) }), el("span", { class:"lbl", text:label(id) }),
-      el("button", { class:"mv", type:"button", "aria-label":"nach oben", text:"▲", disabled: i === 0, onclick: () => move(i, -1) }),
-      el("button", { class:"mv", type:"button", "aria-label":"nach unten", text:"▼", disabled: i === myOrder.length - 1, onclick: () => move(i, 1) }))));
-    const sendBtn = el("button", { class:"btn", type:"button", text: sent ? "Neue Reihenfolge senden" : "Reihenfolge abschicken", disabled: sent && !changedSinceSend,
-      onclick: () => { send({ t:"rank", order: myOrder }); sentOrder = myOrder.slice(); mine.order = myOrder.slice(); saveMine(); toast("Reihenfolge gesendet"); render(); } });
-    const kids = [ el("div", { class:"label", text:"Ranking" }), el("h2", { class:"p-q", text:"Was ist dir am wichtigsten?" }),
-      el("p", { class:"muted", style:"margin:0", text:"Ganz oben steht, was zuerst besprochen werden soll. Mit den Pfeilen verschieben." }),
-      el("div", { class:"card" }, list, sendBtn, sent && !changedSinceSend ? el("div", { class:"ok", text:"Deine Reihenfolge ist angekommen." }) : null) ];
-    if (st.boostOn) {
-      const used = st.boosts?.[pid] || mine.boost;
-      const card = el("div", { class:"card rosa" }, el("h3", { text:"Mein Punkt ist auch wichtig" }));
-      if (used) card.append(el("div", { class:"ok", text:"Du hast „" + label(used) + "“ nach vorne geholt." }));
-      else {
-        card.append(el("p", { style:"margin:0", text:"Einmal pro Runde kannst du einen Punkt ganz nach vorne holen, auch wenn die Mehrheit ihn weiter hinten sieht." }));
-        const sel = el("div", { class:"boostsel" }, ...st.topics.map((t) => el("label", {}, el("input", { type:"radio", name:"boost", value:t.id }), el("span", { text:t.label }))));
-        const go = el("button", { class:"btn rosa", type:"button", text:"Diesen Punkt nach vorne holen" });
-        go.onclick = async () => {
-          const v = sel.querySelector("input:checked")?.value; if (!v) return toast("Bitte einen Punkt wählen.");
-          if (!(await confirmBox("Punkt nach vorne holen?", "„" + label(v) + "“ kommt an den Anfang der Agenda. Das geht nur einmal.", "Nach vorne holen"))) return;
-          send({ t:"boost", topic:v }); mine.boost = v; saveMine(); render();
-        };
-        card.append(sel, go);
-      }
-      kids.push(card);
-    }
-    body.replaceChildren(...kids);
+    const sent=st.ranked?.includes(pid),changedSinceSend=!sentOrder||sentOrder.join()!==myOrder.join();
+    const list=el("ol",{class:"rlist"},...myOrder.map((id,i)=>{
+      const t=st.topics.find(x=>x.id===id);
+      return el("li",{},el("span",{class:"pos",text:String(i+1)}),topicStack(t,"rank-phone:"+id,"lbl"),
+        el("button",{class:"mv",type:"button","aria-label":t.label+" nach oben",text:"▲",disabled:i===0,onclick:()=>move(i,-1)}),
+        el("button",{class:"mv",type:"button","aria-label":t.label+" nach unten",text:"▼",disabled:i===myOrder.length-1,onclick:()=>move(i,1)}));
+    }));
+    const sendBtn=el("button",{class:"btn",type:"button",text:sent?"Neue Reihenfolge senden":"Reihenfolge abschicken",disabled:sent&&!changedSinceSend,onclick:()=>{
+      send({t:"rank",order:myOrder});sentOrder=myOrder.slice();mine.sentOrder=sentOrder;mine.order=myOrder.slice();saveMine();toast("Reihenfolge gesendet");render();
+    }});
+    body.replaceChildren(el("div",{class:"label",text:"Ranking"}),el("h2",{class:"p-q",text:"Was ist dir am wichtigsten?"}),el("p",{class:"muted",style:"margin:0",text:"Ganz oben steht, was zuerst besprochen werden soll. Mit den Pfeilen verschieben."}),el("div",{class:"card"},list,sendBtn,sent&&!changedSinceSend?el("div",{class:"ok",text:"Deine Reihenfolge ist angekommen."}):null));
   }
-  function move(i, d){ const j = i + d; [myOrder[i], myOrder[j]] = [myOrder[j], myOrder[i]]; render(); }
-  function sameSet(a, b){ return a.length === b.length && a.every((x) => b.includes(x)); }
-  function shuffle(a){ for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-
+  function move(i,d){const j=i+d;[myOrder[i],myOrder[j]]=[myOrder[j],myOrder[i]];mine.order=myOrder.slice();saveMine();render();}
   function renderResult(){
-    const ag = st.agenda || [];
-    body.replaceChildren(el("div", { class:"label", text:"Ergebnis" }), el("h2", { class:"p-q", text:"Unsere Agenda für heute" }),
-      el("ol", { class:"p-ag" }, ...ag.map((a, i) => el("li", {}, el("span", { class:"num", text:String(i + 1) }), el("span", { text:a.label }), a.boosts ? el("span", { class:"boost", style:"margin-left:auto", text:"vorne" }) : null))),
-      el("p", { class:"muted", text:"Danke fürs Mitmachen!" }));
+    const ag=st.agenda||[];
+    body.replaceChildren(el("div",{class:"label",text:"Ergebnis"}),el("h2",{class:"p-q",text:"Unsere Agenda für heute"}),
+      ag.length?el("ol",{class:"p-ag"},...ag.map((a,i)=>el("li",{},el("span",{class:"num",text:String(i+1)}),topicStack(a,"ag-phone:"+a.id)))):el("p",{class:"muted",text:"Keine Themen in der aktuellen Agenda."}),el("p",{class:"muted",text:"Danke fürs Mitmachen! Nicht aufgenommene Themen bleiben im Themenspeicher der Moderation."}));
   }
-
-  render();
-  setTimeout(() => { if (!st) render(); }, 4000);
-  conn = connect(code, brokerIdx, (sub, m) => {
-    if (sub !== "state" || !m || typeof m !== "object") return;
-    if (st && m.t && st.t && m.t < st.t) return;
-    const rerender = !st || st.phase !== m.phase || st.round !== m.round || JSON.stringify([m.used?.[pid], m.ranked?.includes(pid), m.boosts?.[pid], m.question, m.maxWords, m.boostOn, m.topics, m.agenda]) !== JSON.stringify([st.used?.[pid], st.ranked?.includes(pid), st.boosts?.[pid], st.question, st.maxWords, st.boostOn, st.topics, st.agenda]);
-    st = m; if (rerender) render();
-  }, (s) => {
-    setStatus("pStatus", s, s === "on" ? "live" : s === "err" ? "offline" : "verbinde…");
-    if (s === "on") conn && conn.pub("in", { t:"hello", pid });
+  function tickPhone(){
+    const show=!!st?.timer&&st.phase!=="ended";$("pTimer").hidden=!show;if(show)timerView(st.timer,"p");
+  }
+  render();setInterval(tickPhone,250);setInterval(()=>retryPending(),1500);
+  conn=connect(code,brokerIdx,(sub,m)=>{
+    if(sub!=="state"||!m||typeof m!=="object"||m.v!==2)return;
+    if(st&&m.round===st.round&&m.t&&st.t&&m.t<st.t)return;
+    const sig=s=>s&&JSON.stringify([s.round,s.phase,s.question,s.extraWords,s.used?.[pid],s.receipts?.[pid],s.ranked?.includes(pid),s.phase==="cloud"&&(s.used?.[pid]||0)>=SOLO_WORDS?s.words:null,s.topics,s.agenda]);
+    const rerender=sig(st)!==sig(m);st=m;
+    if(st.phase!=="ended")syncMine();tickPhone();if(rerender)render();retryPending();
+  },s=>{
+    connected=s==="on";setStatus("pStatus",s,connected?"live":s==="err"?"offline":"verbinde…");
+    if(connected){conn&&conn.pub("in",{t:"hello",pid});retryPending(true);}
   });
-  conn.subscribe("state");
-  setTimeout(() => conn.pub("in", { t:"hello", pid }), 600);
+  conn.subscribe("state");setTimeout(()=>conn.pub("in",{t:"hello",pid}),600);
 }
-
 boot();
 </script>
 </body>
